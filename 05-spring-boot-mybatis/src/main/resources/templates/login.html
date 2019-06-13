@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form id="formLog" action="" method="post">
+	用户名:<input type="text" name="name" /><span style="color: red;" th:errors="${usersAll.name}"></span><br>
+	密码:<input type="text" name="password" /><span style="color: red;" th:errors="${usersAll.password}"></span><br>
+	<input type="button" id="log1" value="注册"><input id="log2" type="button" value="登录">
+</form>
+<script type="text/javascript">
+document.getElementById('log1').addEventListener('click',function () {
+    document.getElementById('formLog').action='/users/login1';
+    document.getElementById('formLog').submit();
+    console.log(11111111)
+});
+document.getElementById('log2').addEventListener('click',function () {
+    document.getElementById('formLog').action='';
+    document.getElementById('formLog').submit();
+    console.log(2222222)
+});
+</script>
+</body>
+</html>
