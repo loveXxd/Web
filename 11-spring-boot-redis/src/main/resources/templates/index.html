@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<span th:text="测试"></span>
+<hr/>
+<span th:text="${msg}"> </span>
+<br>
+<input th:value="${msg}">
+<br>
+<span th:text="${#strings.isEmpty(msg)}"></span>
+<br>
+<span th:text="${#dates.format(time)}"></span>
+<br>
+<span th:text="${#dates.format(time,'yy-MM-dd')}"></span>
+<br>
+<span><a th:href="@{http://ww.baidu.com}">绝对路径</a></span>
+<br>
+<span><a th:href="@{/show}">绝对路径</a></span>
+<br>
+<span><a th:href="@{/show(id=1,name=张三)}">绝对路径传参</a></span>
+<br>
+<span><a th:href="@{/show/{id}/indrex(id=1,name=张三)}">绝对路径传参</a></span>
+<br>
+<span><a th:href="@{~/project/resurcename}">项目路径</a></span>
+<script type="text/javascript">
+	var aa="qqqq";
+</script>
+</body>
+</html>

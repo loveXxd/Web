@@ -48,7 +48,7 @@ public class ManyToMany {
 	
 	
 	@Test
-	@Transactional
+	@Transactional//sesion过期
 	public void testFind(){
 		Roles roles = this.rolesRepository.findOne(2);
 		System.out.println(roles.getRolename());
