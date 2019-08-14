@@ -23,9 +23,9 @@ import com.alibaba.nls.client.protocol.asr.SpeechRecognizerResponse;
 public class MyAiSound {
 
 	private MyAiSound demo = null;
-    private String appKey = "J1wkir4w5Br6mqwC";
-    private String token = "d41c70a70e534257b3beaa85160eed54";
-    private String url = "wss://nls-gateway.cn-shanghai.aliyuncs.com/ws/v1";
+    private String appKey = "";
+    private String token = "";
+    private String url = "";
     private NlsClient client;
     AudioFormat audioFormat;
     TargetDataLine targetDataLine;
