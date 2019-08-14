@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+            <groupId>org.springframework.boot</groupId>
+   			 <artifactId>spring-boot-starter-parent</artifactId>
+    		<version>1.5.10.RELEASE</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+  <groupId>com.wqc</groupId>
+  <artifactId>aliAI-sound-spring</artifactId>
+  <version>1.5.10.RELEASE</version>
+  <properties>
+  	<java.version>1.8</java.version>
+  	</properties>
+   <dependencies>
+        <dependency>
+            <groupId>com.alibaba.nls</groupId>
+            <artifactId>nls-sdk-recognizer</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.13</version>
+        </dependency>
+        <!-- 语音读书 -->
+        <dependency>
+		  <groupId>com.hynnet</groupId>
+		  <artifactId>jacob</artifactId>
+		  <version>1.18</version>
+		</dependency>
+		<!-- 读取xml -->
+		<dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1-beta-11</version>
+                <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>3.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xmlParserAPIs</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+           <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<version>2.3.1</version>
+			<configuration>
+				<archive>
+					<manifest>
+						<addClasspath>true</addClasspath>
+					</manifest>
+					<manifestEntries>
+						<Premain-Class>
+							com.xzq.test.PreAgent
+						</Premain-Class>
+					</manifestEntries>
+				</archive>
+			</configuration>
+		
+		     </plugin>
+        </plugins>
+    </build>
+</project>
