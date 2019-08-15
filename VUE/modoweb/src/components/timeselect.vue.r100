@@ -1,0 +1,261 @@
+/**
+* created by lifeng on 2019-05-18
+* create time :2019-05-18 22:18
+*/
+
+<template>
+    <div class='main'>
+      <modal v-model="modall" @on-ok="ok"
+             @on-cancel="cancel" :type="modalltype"><p style="text-align: center;">{{modallerro}}</p></modal>
+      <div style="padding: 5px">
+        <h5 style="margin-top: 30px;margin-bottom: 10px">日期选择</h5>
+        <DatePicker type="date" :value="datetime" split-panels placeholder="Select date" :clearable="false" style="width: 200px;margin-bottom: 10px;"></DatePicker>
+        <Button @click="addHandler($event)" type="primary"><Icon type="md-add" />
+          添加</Button>
+        <Button @click="removeHandler($event)" type="error"><Icon type="ios-remove-circle-outline" />
+          取消</Button>
+      </div>
+      <div style="display: inline-block;width: 900px">
+        <Button style="margin: 5px" class="button_time" v-for="(item,index) in timelist" :key="index" :type="item.type" @click="selectHandler($event)">{{item.time}}<Badge class="badico" :count="item.students" type="success"></Badge></Button>
+      </div>
+      <h5 style="margin-top: 30px;margin-bottom: 10px">课程选择</h5>
+      <div style="display: inline-block;width: 100%">
+        <Button class="button_cl" v-for="(item,index) in courselist" :key="index" :type="item.type" @click="courseselectHandler($event)">{{item.coursename}}<icon v-if="item.type==='primary'" type="close-circled" size="20" style="padding: 0 5px 0 5px;margin-right: 5px;float: right"></icon>
+        </Button>
+      </div>
+      <Button style="    right: 100px; margin-left: 85%;margin-top: 8%;width: 120px;" type="primary" @click="submit">提交</Button>
+    </div>
+</template>
+<script>
+import date from '../utils/date'
+import loader from '../utils/loader'
+export default {
+  name: 'timeselect',
+  props: ['initdate'],
+  data () {
+    return {
+      modall: false,
+      modalltype: 'default',
+      modallerro: '',
+      selecttime: [],
+      datetime: date.getNowFormatDate(),
+      selectcourse: [],
+      courselist: [],
+      timelist: []
+      // timelist: [{text: '00:00-00:30', type: 'default'}, {text: '00:30-01:00', type: 'default'}, {text: '01:00-01:30', type: 'default'}, {text: '01:30-02:00', type: 'default'}, {text: '02:00-02:30', type: 'default'}, {text: '02:30-03:00', type: 'default'}, {text: '03:00-03:30', type: 'default'}, {text: '03:30-04:00', type: 'default'}, {text: '04:00-04:30', type: 'default'}, {text: '04:30-05:00', type: 'default'}, {text: '05:00-05:30', type: 'default'}, {text: '05:30-06:00', type: 'default'}, {text: '06:00-06:30', type: 'default'}, {text: '06:30-07:00', type: 'default'}, {text: '07:00-07:30', type: 'default'}, {text: '07:30-08:00', type: 'default'}, {text: '08:00-08:30', type: 'default'}, {text: '08:30-09:00', type: 'default'}, {text: '09:00-09:30', type: 'default'}, {text: '09:30-10:00', type: 'default'}, {text: '10:00-10:30', type: 'default'}, {text: '10:30-11:00', type: 'default'}, {text: '11:00-11:30', type: 'default'}, {text: '11:30-12:00', type: 'default'}, {text: '12:00-12:30', type: 'default'}, {text: '12:30-13:00', type: 'default'}, {text: '13:00-13:30', type: 'default'}, {text: '13:30-14:00', type: 'default'}, {text: '14:00-14:30', type: 'default'}, {text: '14:30-15:00', type: 'default'}, {text: '15:00-15:30', type: 'default'}, {text: '15:30-16:00', type: 'default'}, {text: '16:00-16:30', type: 'default'}, {text: '16:30-17:00', type: 'default'}, {text: '17:00-17:30', type: 'default'}, {text: '17:30-18:00', type: 'default'}, {text: '18:00-18:30', type: 'default'}, {text: '18:30-19:00', type: 'default'}, {text: '19:00-19:30', type: 'default'}, {text: '19:30-20:00', type: 'default'}, {text: '20:00-20:30', type: 'default'}, {text: '20:30-21:00', type: 'default'}, {text: '21:00-21:30', type: 'default'}, {text: '21:30-22:00', type: 'default'}, {text: '22:00-22:30', type: 'default'}, {text: '22:30-23:00', type: 'default'}, {text: '23:00-23:30', type: 'default'}, {text: '23:30-24:00', type: 'default'}]
+    }
+  },
+  components: {},
+  methods: {
+    // 该属性中申明方法
+    selectHandler (e) {
+      let timetxt = e.currentTarget.innerText.substring(0, 11)
+      let index = this.getTimeindex(timetxt)
+      let obj = this.timelist[index]
+
+      let dataindex = this.getdateIndex(timetxt)
+      if (dataindex !== -1) {
+        if (obj.students > 0) {
+          this.modall = true
+          this.modallerro = '这个时间已经有' + obj.students + '个学生预约，请您不要辜负学生们的期待哦！！'
+        } else {
+          this.selecttime.splice(dataindex, 1)
+          this.timelist[index].type = 'default'
+        }
+      } else {
+        this.timelist[index].type = 'primary'
+        this.selecttime.push(obj)
+      }
+      this.$emit('change', this.datetime, this.selecttime)
+    },
+    getdateIndex (text) {
+      let result = -1
+      for (let i = 0; i < this.selecttime.length; i++) {
+        if (this.selecttime[i].time === text) {
+          result = i
+          return result
+        }
+      }
+      return result
+    },
+    getTimeindex (txt) {
+      let result = -1
+      for (let i = 0; i < this.timelist.length; i++) {
+        if (this.timelist[i].time === txt) {
+          result = i
+          return result
+        }
+      }
+    },
+    courseselectHandler (e) {
+      let coursetxt = e.currentTarget.innerText
+      let isorno = this.hasincourse(coursetxt)
+      let index = this.getcoursindex(coursetxt)
+      let obj = {coursename: '', index: -1}
+      console.log(index)
+      obj.coursename = this.courselist[index].coursename
+      obj.index = index
+      if (isorno === -1) {
+        this.courselist[index].type = 'primary'
+        this.selectcourse.push(obj)
+      } else {
+        for (var i = 0; i < this.selectcourse.length; i++) {
+          if (this.selectcourse[i].coursename === obj.coursename) {
+            this.selectcourse.splice(i, 1)
+            this.courselist[index].type = 'default'
+          }
+        }
+      }
+      this.$emit('change', this.selectcourse, this.datetime)
+    },
+    hasincourse (text) {
+      let result = -1
+      if (this.selectcourse) {
+        for (let i = 0; i < this.selectcourse.length; i++) {
+          if (this.selectcourse[i].coursename === text) {
+            result = i
+            return result
+          }
+        }
+      }
+      return result
+    },
+    getcoursindex (text) {
+      let result = -1
+      for (let i = 0; i < this.courselist.length; i++) {
+        if (this.courselist[i].coursename === text) {
+          result = i
+          return result
+        }
+      }
+      return result
+    },
+    tadehasselectcourse (e) {
+      this.datetime = e
+    },
+    ok () {},
+    cancel () {},
+    submit () {
+      loader.post('/dataserver/modo/timemanager/i_opendate.php', {
+        date: this.date,
+        timelist: this.timelist
+      }, (res) => {
+        console.log(res.data)
+      })
+    }
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    loader.post('/dataserver/modo/timemanager/timelist.php', {
+    }, (res) => {
+      if (res.data.result === '1') {
+        for (let i = 0; i < res.data.data.length; i++) {
+          let obj = {time: res.data.data[i].time, type: 'default', students: 0}
+          this.timelist.push(obj)
+        }
+      } else {
+
+      }
+    })
+    /* for (let i = 0; i < this.initdate.length; i++) {
+      let index = this.getTimeindex(this.initdate[i])
+      let obj = this.timelist[index]
+      console.log(obj)
+      obj.type = 'primary'
+      this.date.push(obj)
+    } */
+    loader.post('/dataserver/modo/timemanager/timecourse.php', {
+      name: '李二狗', time: '2019-05-01'
+    }, (res) => {
+      // 课程列表
+      if (res.data.result === '1') {
+        let obj = res.data.data
+        this.datetime = obj[0].time
+        // 所有课程列表
+        if (obj[0].allcourse) {
+          let arr = obj[0].allcourse.split(',')
+          if (arr) {
+            for (var i = 0; i < arr.length; i++) {
+              let obj = {coursename: '', type: 'default'}
+              obj.coursename = arr[i]
+              this.courselist.push(obj)
+            }
+          }
+          // 已选课程列表
+          if (obj[0].selectcourse) {
+            let arr = obj[0].selectcourse.split(',')
+            if (arr) {
+              for (var j = 0; j < arr.length; j++) {
+                let obj = {coursename: '', index: -1}
+                obj.coursename = this.courselist[arr[j]].coursename
+                obj.index = arr[j]
+                this.courselist[arr[j]].type = 'primary'
+                this.selectcourse.push(obj)
+              }
+            }
+          }
+        }
+        // 已选时间列表
+        if (obj[0].selecttimeAndStudens) {
+          let arr = obj[0].selecttimeAndStudens.split(';')
+          if (arr) {
+            for (var s = 0; s < arr.length; s++) {
+              var indexc = arr[s].split(':')[0]
+              var students = arr[s].split(':')[1]
+              this.timelist[indexc].type = 'primary'
+              this.timelist[indexc].students = parseInt(students)
+              this.selecttime.push(this.timelist[indexc])
+            }
+          }
+        }
+        console.log(this.timelist)
+      } else {
+      }
+    })
+    this.$emit('initover', this)
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+
+  },
+  beforeUpdate: function () {
+
+  },
+  updated: function () {
+
+  },
+  beforeDestroy: function () {
+
+  },
+  destroyed: function () {
+
+  }
+}
+</script>
+
+<style scoped>
+.main{
+  padding: 10px;
+}
+.button_time{
+   width:100px ; margin:
+    5px 10px;padding:
+    5px 0 5px 5px;
+ }
+
+.button_cl{
+  width:100px ; margin:
+  5px 10px;padding:
+  5px 0 5px 5px;
+}
+  .badico{
+    margin-left: 10px;
+    width: 5px;
+    height: 10px;
+    top: 0px;
+  }
+</style>
