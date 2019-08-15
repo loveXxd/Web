@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+html, body {
+	margin: 0px;
+	height: 100%;
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	color: #000000;
+	font-size: 14px !important;
+	background: #fff;
+	font-family: "Helvetica Neue", "Helvetica", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei";
+}
+div {
+	//border: 1px solid red;
+	//color: black
+}
+.head-logo-icon {
+	display: block;
+	width: 100%;
+	height: 40px;
+	margin-top: 15px;
+	background: url("../image/logo.png") no-repeat;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+.head-logo {
+	margin-left: 20px;
+	width: 198px;
+	height: 70px;
+	float: left;
+	font-size: 0;
+}
+.header {
+	width: 100%;
+	height: 70px;
+}
+.register-main {
+	width: 400px;
+	height: 496px;
+	padding: 72px 50px 40px;
+	background: #fff;
+	-webkit-box-shadow: 0 10px 30px 0 rgba(0,0,0,.05);
+	box-shadow: 0 10px 30px 0 rgba(0,0,0,.05);
+
+}
+.register {
+	width: 100%;
+	height: 755px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	background: url("../image/login-bg.jpg") no-repeat 50%;
+	background-size: cover;
+	margin-bottom: -160px;
+}
+.foot {
+	
+	//width: 100%;
+	//height: 200px;
+	//background: #ffffff;
+	
+	
+}
+.foot-copyright{
+	width: 100%;
+	margin: 20px;
+	position: fixed;
+	bottom: 0px;
+	text-align: center;
+}
+
+
+
+.welcome .welcome-main .welcome-title[data-v-3604ed08] {
+    text-align: center;
+    margin-bottom: 80px;
+    font-size: 24px;
+    color: #000;
+    font-weight: 400;
+}
