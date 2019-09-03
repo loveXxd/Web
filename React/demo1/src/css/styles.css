@@ -1,0 +1,18 @@
+
+.title{color: red;}
+/**
+    css默认引入后是全局的样式都可以使用
+    打包处理css样式 第三方loader ?modules样式表启动模块化 限制后的样式不能直接用className="title"访问
+    模块化的的标签只针对 class 选择器和id选择器不会将 标签选择器模块化 如h1 span等标签样式
+
+
+*/
+/*:lobal(){}就是模块化的默认样式*/
+ :local(#user){font-size:14px;font-weight: 600;}
+
+/* #user{font-size:14px;font-weight: 600;} */
+/*模块化后的的css如果有部分不需要模块化的可以加:global(){}*/
+:global(.test){
+    text-align: center;
+}
+/* .test{text-align: center;} */
