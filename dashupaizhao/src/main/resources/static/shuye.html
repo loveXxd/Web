@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/shuye.css" />
+		<script type="text/javascript" src="./js/jq.js"></script>
+	</head>
+	<style>
+		html,body{
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+	     #message{
+	            margin-top:40px;
+	            border:1px solid gray;
+	            padding:20px;
+	        }
+	.mags{
+		width: 100px;
+		position: absolute;
+		line-height: inherit;
+		}
+		.myimg{
+			width: 100%;
+			position: absolute;
+			left: 0;
+			top:0;
+			z-index: 1;
+		}
+		.magscon{
+			
+			text-align: center;
+			position: absolute;
+			left: 0;
+			top:100%;
+			z-index: 10;
+		}
+	video::-webkit-media-controls-fullscreen-button{ display: none !important; }
+	 
+	    /*video默认aduio音量按钮*/
+	    video::-webkit-media-controls-mute-button { display: none !important;}
+	 
+	    /*video默认setting按钮*/
+	    video::-internal-media-controls-overflow-button{ display: none !important;}
+	 
+	    /*腾讯云点播禁用firefox全屏、设置按钮*/
+	    .trump-button[sub-component="fullscreen_btn"],.trump-button[now="fullscreen"]{ display:none!important;}
+	    .trump-button[sub-component="setting"]{ display:none !important;}
+	 
+	/*禁用video的controls（要慎重！不要轻易隐藏掉，会导致点击视频不能播放）*/
+	video::-webkit-media-controls {
+	  display:none !important;
+	}
+	.nonecl{display: none;}
+	    </style>
+	<body>
+		<!-- <input type="text" id="nickname" value="11" class="nonecl"/>
+		<button id                                     ="conec" onclick="conectWebSocket()" class="nonecl">连接WebSocket</button>
+		<button id="close" onclick="closeWebSocket()" class="nonecl">断连接</button>
+		<hr class="nonecl" />
+		<br  class="nonecl"/>
+		<p class="nonecl">消息：</p><input id="text" value="111" type="text"  class="nonecl"/>
+		<p class="nonecl">频道号：</p><input id="toUser" type="text"  class="nonecl"/>
+		<button id="sen" onclick="send()" class="nonecl">发送消息</button>
+		<div id="message" class=""></div>
+		<div style="text-align:center ;">
+		<video class="nonecl" src=".\22.mp4" id="video1"   controls controlsList='nofullscreen nodownload noremote footbar' style="width: 20%;margin-top: 5%;"> */
+		<source class="nonecl" id="videoSource" :src=".\22.mp4" type="video/mp4"> 
+		</video> -->
+		<div id="message" style="display: none;" class="nonecl"></div>
+		
+		</div>
+		<!-- <img src="images/dashu.jpg" class="myimg"  style="z-index: 1;"/> -->
+		<div id="container"> 
+		 
+  <!-- The container is dynamically populated using the init function in leaves.js -->  
+  <!-- Its dimensions and position are defined using its id selector in leaves.css -->  
+  <div id="leafContainer">
+	  <!-- <div class="outcont" style="width:  5%;height:10%;background: red;position: relative;top: 10%;left: 20%;">
+		  <div id="anomadiv">
+		  	<img src="images/shuye.png" style="width: 100%;height: 50%;" >
+			<img src="images/5.png" style="width: 50%;height: 25%;border-radius: 50%;position: absolute;top: 12%;left: 25%;" >
+		  </div>
+		  <div id="condiv" style="background: url(images/qipao.png) no-repeat; height: 50%;width: 100%;position: relative;">
+			  <img src="images/qipao.png" style="width: 100%;height: 100%;-webkit-transform: rotate(180deg);">
+			  <div style="position: absolute;top: 0;left: 0;width: 100%; overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">你是不是筛子啊你个二货加沙华</div>
+		  </div>
+	  </div> -->
+  </div>  
+  <!-- its appearance, dimensions, and position are defined using its id selector in leaves.css -->  
+  <div id="message">  <!-- 
+   <em>这是基于webkit的落叶动画</em>  -->
+  </div>  
+</div>  
+	</body>
+	<script src="./js/shuye.js"></script>
+	<script type="text/javascript">
+		
+		var timeout;
+		var timeinte;
+		var mytiem;
+		var allmsgcon= [];
+		var defaulmsgcon=  [{"name":"1111","msg":"1111","img":"images/1.png"},
+							{"name":"2222","msg":"2222","img":"images/2.png"},
+							{"name":"3333","msg":"3333","img":"images/3.png"},
+							{"name":"4444","msg":"4444","img":"images/4.png"},
+							{"name":"5555","msg":"5555","img":"images/4.png"},
+							{"name":"6666","msg":"6666","img":"images/4.png"},
+							{"name":"7777","msg":"7777","img":"images/4.png"},
+							{"name":"8888","msg":"8888","img":"images/4.png"},
+							{"name":"9999","msg":"9999","img":"images/4.png"},
+							{"name":"aaaa","msg":"aaaa","img":"images/4.png"},
+							{"name":"bbbb","msg":"bbbb","img":"images/4.png"},
+							
+							
+							];                 
+		var defmsgindex=0; 
+			show();
+		
+			
+				// function _filter_method(obj){
+				// 	//获取文本输入框中的内容
+				// 	var value = $(obj).val();
+				// 	//遍历敏感词数组
+				// 	for(var i=0;i<keywords.length;i++){
+				// 		//全局替换
+				// 		var reg = new RegExp(keywords[i],"g");
+				// 		//判断内容中是否包括敏感词
+				// 		if(value.indexOf(keywords[i])!=-1){
+				// 			var result = value.replace(reg,"**");
+				// 			value = result;
+				// 			$(obj).val(result);
+				// 		}
+				// 	}
+				// }
+			function show(){
+				
+				timeinte=window.setInterval(function(){
+					
+					//allcont[indexmsgdiv].getElementsByClassName("magscon")[0].innerHTML=allmsgcon[indexmsgcon];
+					//if(outmsgindex==(allcont.length-1)){indexmsgdiv=0;}else{indexmsgdiv++;}
+					
+					var fornum=0;
+					if(allmsgcon.length>0){
+						if(allmsgcon.length<=allcont.length){
+							fornum=allmsgcon.length;
+						}else{
+							fornum=allcont.length;
+						}
+							var nowinindex =Math.floor(Math.random()*allcont[0].length);
+							for(var j=0;j<fornum;j++){
+								document.getElementById("out"+j+""+nowinindex).style.webkitAnimationName = 'fade, drop';
+								document.getElementById("co"+j+""+nowinindex).getElementsByClassName("conttxt")[0].style.webkitAnimationName= "changeshadow";
+							}
+							mytiem=setTimeout(function(){
+								for(var j=0;j<fornum;j++){
+									document.getElementById("co"+j+""+nowinindex).getElementsByTagName("div")[0].innerHTML=allmsgcon[j].msg;
+									document.getElementById("img"+j+""+nowinindex).getElementsByTagName("img")[1].src=allmsgcon[j].img;
+									
+								}
+								for(var j=0;j<fornum;j++){
+									allmsgcon.splice(j,1);
+								}
+							},3000)
+							setTimeout(function(){
+								for(var s=0;s<allcont.length;s++){
+									for(var k=0;k<allcont[s].length;k++){
+										document.getElementById("out"+s+""+k).style.webkitAnimationName = '';
+										document.getElementById("co"+s+""+k).getElementsByClassName("conttxt")[0].style.webkitAnimationName="";
+									}
+								}	
+							},6000)
+						
+						
+					}else if(allmsgcon.length==0){
+						//fornum=allcont.length;
+						var dropnum =Math.floor(Math.random()*allcont.length);
+						var nowinindex =Math.floor(Math.random()*allcont[0].length);
+						var numfor;
+						
+						for(var j=nowinindex;j<(nowinindex+dropnum);j++){
+							numfor=(j%allcont.length);
+							//console.log("co"+numfor+""+nowinindex);
+							document.getElementById("out"+numfor+""+nowinindex).style.webkitAnimationName = 'fade, drop';
+							document.getElementById("co"+numfor+""+nowinindex).getElementsByClassName("conttxt")[0].style.webkitAnimationName= "changeshadow";
+							
+						}
+						mytiem=setTimeout(function(){
+							for(var j=nowinindex;j<(nowinindex+dropnum);j++){
+								numfor=(j%allcont.length);
+								//console.log("co"+numfor+""+nowinindex+""+j);
+								var defulenshowindex =Math.floor(Math.random()*defaulmsgcon.length);
+								document.getElementById("co"+numfor+""+nowinindex).getElementsByTagName("div")[0].innerHTML=defaulmsgcon[defulenshowindex].msg;
+								document.getElementById("img"+numfor+""+nowinindex).getElementsByClassName("touxiang")[0].src=defaulmsgcon[defulenshowindex].img;
+								
+							}
+							
+						},3000)
+						setTimeout(function(){
+						for(var s=0;s<allcont.length;s++){
+							for(var k=0;k<allcont[s].length;k++){
+								document.getElementById("out"+s+""+k).style.webkitAnimationName = '';
+								document.getElementById("co"+s+""+k).getElementsByClassName("conttxt")[0].style.webkitAnimationName="";
+							}
+						}	
+						},6000)
+						
+						
+					}
+				},10000);
+			}
+		conectWebSocket();
+	    var websocket = null;
+	    function conectWebSocket(){
+	    	var nickname = "fist";
+	    	if(nickname===""){
+	    	    alert("请输入昵称");
+	    	    return;
+	    	}
+	        //判断当前浏览器是否支持WebSocket
+	        if ('WebSocket'in window) {
+	           // websocket = new WebSocket("ws://localhost:5050/websocket");
+	            websocket = new WebSocket("ws:"+window.location.href.split("//")[1].split("/shuye")[0]+"/websocket"+"/qqq"); 
+	        } else {
+	            alert('Not support websocket');
+	        }
+	        //连接发生错误的回调方法
+	        websocket.onerror = function() {
+	            setMessageInnerHTML("error");
+	        };
+	        //连接成功建立的回调方法
+	        websocket.onopen = function(event) {
+	            setMessageInnerHTML("Loc MSG: 成功建立连接");
+	        }
+	        //接收到消息的回调方法
+	        websocket.onmessage = function(event) {
+	            setMessageInnerHTML(event.data);
+	        }
+	        //连接关闭的回调方法
+	        websocket.onclose = function() {
+	            setMessageInnerHTML("Loc MSG:关闭连接");
+	        }
+	        //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+	        window.onbeforeunload = function() {
+	            websocket.close();
+	        }
+	    }
+	    //将消息显示在网页上
+	    function setMessageInnerHTML(innerHTML) {
+	    	console.log(typeof(innerHTML));
+	    	var mes=innerHTML.split("-!0!-");
+			console.log(mes);
+			if(mes.length==3){
+				var myallmsg={
+					name:mes[0],
+					msg:mes[1],
+					img:mes[2]
+				}	
+				allmsgcon.push(myallmsg);
+			}
+	    }
+		
+	    //关闭连接
+	    function closeWebSocket() {
+	        websocket.close();
+	    }
+	    //发送消息
+	    /*function send() {
+	        var message = document.getElementById('text').value;
+	        websocket.send(message);
+	    }*/
+	  //发送消息
+	    function send() {
+	        //获取输入的文本信息进行发送
+	        var message = document.getElementById('text').value;
+	        var toUser = document.getElementById('toUser').value;
+	        var socketMsg = {msg:message,toUser:toUser};
+	        if(toUser == ''){
+	            //群聊.
+	            socketMsg.type = 0;
+	        }else{
+	            //单聊.
+	            socketMsg.type = 1;
+	        }
+	        websocket.send(JSON.stringify(socketMsg));
+	    }
+	</script>
+</html>

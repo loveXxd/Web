@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>摄像头拍照</title>
+		
+	<style>
+		html,body,.outw{
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			
+		}
+		.content{
+			padding:0.5rem;
+			display: flex;
+			align-items: center;
+			border-bottom: 1px #999 solid
+		}
+		.label{
+			width:5rem;
+		}
+		.img-area{
+			flex:1
+		}
+		.container{
+			background-color:#e7e7e7;
+			position: relative;
+		}
+		.container div{
+			text-align: center;
+			padding:0.5rem 0
+		}
+		.container input{
+			opacity:0;
+			filter:alpha(opacity=0);
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 9;
+		}
+		.container p{
+			font-size: 0.9rem;
+			color:#999
+		}
+		.btn{
+			background-color: #4363ab;
+			color: #fff;
+			text-align: center;
+			padding: 0.5rem 1rem;
+			width:80%;
+			border-radius: 0.2rem;
+			margin: 2rem auto;
+			font-weight: 600;
+			font-size: 1.2rem
+		}
+		.namebtn,.conbtn,.imgcabtn{
+			background-color: #4363ab;
+			color: #fff;
+			text-align: center;
+			padding: 0.5rem 1rem;
+			width:80%;
+			border-radius: 0.2rem;
+			margin: 2rem auto;
+			font-weight: 600;
+			font-size: 1.2rem
+		}
+		.imgall{display: none;}
+		#namecont{
+			text-align: center;
+			padding: 0.5rem 1rem;
+			width:80%;
+			border-radius: 0.2rem;
+			border: solid #000000 1px ;
+			margin: 2rem auto;
+			font-weight: 600;
+			font-size: 1.2rem
+			}
+			#txtcont{
+				text-align: center;
+				height: 100px;
+				padding: 0.5rem 1rem;
+				width:80%;
+				border-radius: 0.2rem;
+				border: solid #000000 1px ;
+				margin: 2rem auto;
+				font-weight: 600;
+				font-size: 1.2rem
+				}
+			#selfname{
+				text-align: center;
+				
+			}
+			.selfcont{text-align: center;
+			}
+			.lastshow{
+				background-color: #4363ab;
+				text-align: center;
+				height: 50px;
+				line-height: 50px;
+				padding: 0.5rem 1rem;
+				width:80%;
+				border-radius: 0.2rem;
+				border: solid #000000 1px ;
+				margin: 2rem auto;
+				font-weight: 600;
+				font-size: 1rem;
+				display: none;
+				
+			}
+			 input::-webkit-input-placeholder{
+					color:#2319193b;
+				}
+				input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+					color:#2319193b;
+				}
+				input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+					color:#2319193b;
+				}
+				input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+					color:#2319193b;
+				}
+				#caout{
+					-webkit-animation-iteration-count: infinite, infinite;   
+					-webkit-animation-direction: normal, normal;   
+					-webkit-animation-timing-function: linear, ease-in; 
+					  -webkit-animation: 5s linear forwards;
+				}
+				@-webkit-keyframes clockwiseSpin   
+				{   
+					 0%   { -webkit-transform: rotate(0deg) translateY() scale(0.8); opacity:1;}
+					 60%   { -webkit-transform: rotate(0deg) translateY(-60px) scale(0.2); opacity:1;} 
+					 80% { -webkit-transform:rotate(0deg) translateY(-80px) scale(0.05); opacity:0; } 
+				    100% { -webkit-transform:rotate(0deg) translateY(-80px) scale(0.05); opacity:0; } 
+				}
+				
+				  /* Rotate a leaf by -50 degrees in 2D space at the start of the animation  
+				0%   { -webkit-transform: rotate(0deg) translateY() scale(1); opacity:1;}   
+				15%   { -webkit-transform rotate(30deg) translateY(-50px) scale(0.4); opacity:1;} 
+				25%   { -webkit-transform rotate(60deg) translateY(50px) scale(0.4); opacity:1;} 
+				25%   { -webkit-transform rotate(20deg) translateY(-50px) scale(0.2); opacity:1;} 
+				  50%   { -webkit-transform: rotate(0deg) translateY(-100px) scale(0.1); opacity:1;} 
+				  75%   { -webkit-transform: rotate(60deg) translateY(-150px) scale(0.05); opacity:0.8}
+				100% { -webkit-transform: rotate(0deg) translateY(-200px) scale(0.05); opacity:0; } */   
+				
+				  
+	</style>
+</head>
+<body>
+	<!-- <canvas id="lastshow" width="200" height="100"></canvas>
+	<div id="allimg" style=>
+		<img id="0" src="images/winshuye/bg2.png" width="75" height="75" />
+		<img id="1" src="" width="75" height="75" />
+		<img id="2" src="" width="75" height="75" />
+		<img id="3" src="" width="75" height="75" />
+	</div> -->
+	<!-- 第一页-->
+	<div id="selfname" class="outw" style="background: url(images/winshuye/bgl.jpg) no-repeat; background-size: 100%;">
+		<div id="caout" style="background: url(images/winshuye/bg2.png) no-repeat; width: 80%;height: 71%;margin-left: 14%;margin-top: 14%;text-align: left;background-size: 100%;">
+			<canvas id="xu1"   width="870" height="270" style=" border: 3px solid #e91e638c;    margin-top: 10%; margin-left:  19%;" ></canvas>
+			<img id="xu11" src="images/picall/defpic.png"  width="150" height="150" style="border: 1px #e91e638c; border-radius: 50%;  margin-left: 27%;margin-top: 4%;visibility: hidden;" ></img>
+			<canvas id="xu2"  width="300" height="100" style="border: 1px solid #e91e638c;margin-left: 2.5%;margin-top: 7%; " ></canvas>
+			
+		</div>
+		<div style="height: 10%;top: 86.5%;width: 100%;margin-top: -6%;">
+		<div id="flushnameandcon" class="chbtncl" style="background: url(images/winshuye/flush1.png) no-repeat;background-size: 100%; width: 13%;height: 100%;float: left;margin-left: 70%;"> </div>
+		<div id="uploadnameandcon" class="chbtncl" style="background: url(images/winshuye/upload1.png) no-repeat;background-size: 100%; width: 13%;height: 100%;float: left;margin-left: 1%;"> </div>
+		</div>
+	</div>
+	<!-- 第二页-->
+	<div id="selfcont" class="selfcont outw" style="position: absolute;background:rgba(255, 255, 255, 0.5); top: 0;left: 0;display: none;">
+		<div style="width: 72%;background: url(images/picall/bg2.png) no-repeat;height: 70%;margin-left: 14%;margin-top: 10%;background-size: 100%;">
+	<div id="close1" style="position: absolute;width: 40px;height: 40px;background: url(images/picall/close.png) no-repeat;background-size: 100%;right: 18%;top: 22%;"></div>
+	<div style="position: absolute;width: 37%;height: 64%;left: 31%;top: 13%;background: url(images/picall/guangyun2.png) no-repeat;background-size: 100%;" >
+		
+		<img id="defuimg" src="images/picall/defpic.png"  style="position: absolute;left: 15%;top: 17%;">
+	</div>
+	<div style="height: 10%;top: 74.5%;width: 100%;position: absolute;">
+	<div id="usedefpic" class="chbtncl" style="background: url(images/picall/usedefpic1.png) no-repeat;background-size: 100%; width: 23%;height: 100%;float: left;margin-left: 15.5%;"> </div>
+	<div id="topic" class="chbtncl" style="background: url(images/picall/topic1.png) no-repeat;background-size: 100%; width: 15%;height: 100%;float: left;margin-left: 4%;"> </div>
+	</div>
+	</div>
+</div>		
+		<!-- 第三页-->
+		<div id="selfpic" class="selfcont outw" style="position: absolute;background:rgba(255, 255, 255, 0.5); top: 0;left: 0;display: none;">
+			<div style="width: 72%;background: url(images/picall/bg2.png) no-repeat;height: 70%;margin-left: 14%;margin-top: 10%;background-size: 100%;">
+		<div id="close2" style="position: absolute;width: 40px;height: 40px;background: url(images/picall/close.png) no-repeat;background-size: 100%;right: 18%;top: 22%;"></div>
+		<div style="position: absolute;width: 37%;height: 64%;left: 31%;top: 13%;background: url(images/picall/guangyun2.png) no-repeat;background-size: 100%;" >
+		<div id=" videoout" style="position: absolute;left: 15%;top: 17%;width: 71%;height: 71%;border-radius: 50%;overflow: hidden;">
+			<video id="myvideo"style="    left: -25%;position: absolute;" width="750" height="500"  controls ></video>
+			<canvas id="mycanvas" width="750" height="500"style="    left: -25%;position: absolute;"></canvas>
+		</div>
+		</div>
+		<div style="height: 10%;top: 74.5%;width: 100%;position: absolute;">
+		<div id="flushpic" class="chbtncl" style="background: url(images/picall/overpic1.png) no-repeat;background-size: 100%; width:15%;height: 100%;float: left;margin-left: 15.5%;"> </div>
+		<div id="picbtn" class="chbtncl" style="background: url(images/picall/pic1.png) no-repeat;background-size: 100%; width:4.5%;height: 100%;float: left;margin-left: 3%;"> </div>
+		<div id="uploadpic" class="chbtncl" style="background: url(images/winshuye/upload1.png) no-repeat;background-size: 100%; width: 15%;height: 100%;float: left;margin-left: 4%;"> </div>
+		</div>
+		</div>
+		</div>
+	<script src="./js/jq.js"></script>
+	<script src="./js/cavasejs.js"></script>
+	<script src="./js/mysocket.js"></script>
+	<script src="./js/cihui.js"></script>
+	<script src="./js/docujs.js"></script>
+	
+</body>
+</html>

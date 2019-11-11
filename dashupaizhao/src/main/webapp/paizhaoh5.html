@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>摄像头拍照</title>
+		<script src="./js/jq.js"></script>
+	<style>
+		body{
+			margin: 0
+		}
+		.content{
+			padding:0.5rem;
+			display: flex;
+			align-items: center;
+			border-bottom: 1px #999 solid
+		}
+		.label{
+			width:5rem;
+		}
+		.img-area{
+			flex:1
+		}
+		.container{
+			background-color:#e7e7e7;
+			position: relative;
+		}
+		.container div{
+			text-align: center;
+			padding:0.5rem 0
+		}
+		.container input{
+			opacity:0;
+			filter:alpha(opacity=0);
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 9;
+		}
+		.container p{
+			font-size: 0.9rem;
+			color:#999
+		}
+		.btn{
+			background-color: #4363ab;
+			color: #fff;
+			text-align: center;
+			padding: 0.5rem 1rem;
+			width:80%;
+			border-radius: 0.2rem;
+			margin: 2rem auto;
+			font-weight: 600;
+			font-size: 1.2rem
+		}
+		.namebtn,.conbtn,.imgcabtn{
+			background-color: #4363ab;
+			color: #fff;
+			text-align: center;
+			padding: 0.5rem 1rem;
+			width:80%;
+			border-radius: 0.2rem;
+			margin: 2rem auto;
+			font-weight: 600;
+			font-size: 1.2rem
+		}
+		.imgall{display: none;}
+		#namecont{
+			text-align: center;
+			padding: 0.5rem 1rem;
+			width:80%;
+			border-radius: 0.2rem;
+			border: solid #000000 1px ;
+			margin: 2rem auto;
+			font-weight: 600;
+			font-size: 1.2rem
+			}
+			#txtcont{
+				text-align: center;
+				height: 100px;
+				padding: 0.5rem 1rem;
+				width:80%;
+				border-radius: 0.2rem;
+				border: solid #000000 1px ;
+				margin: 2rem auto;
+				font-weight: 600;
+				font-size: 1.2rem
+				}
+			#selfname{
+				text-align: center;
+				
+			}
+			.selfcont{text-align: center;
+						display: none;
+			}
+			.lastshow{
+				background-color: #4363ab;
+				text-align: center;
+				height: 50px;
+				line-height: 50px;
+				padding: 0.5rem 1rem;
+				width:80%;
+				border-radius: 0.2rem;
+				border: solid #000000 1px ;
+				margin: 2rem auto;
+				font-weight: 600;
+				font-size: 1rem;
+				display: none;
+				
+			}
+			 input::-webkit-input-placeholder{
+					color:#2319193b;
+				}
+				input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+					color:#2319193b;
+				}
+				input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+					color:#2319193b;
+				}
+				input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+					color:#2319193b;
+				}
+	</style>
+</head>
+<body>
+	<div id="selfname">
+		<input id="namecont"  placeholder="请输入您的姓名或昵称(不能超过10个字哦)" maxlength="10"/>
+		<div style="color: red;visibility: hidden;" id="nameerro">111111111</div>
+		 <div class="namebtn" id="namebtn">
+		    确定
+		</div>
+	</div>
+	<div id="selfcont" class="selfcont">
+		<textarea id="txtcont"  placeholder="请输入您想对鄂尔多斯的赠言(但是不要超过20个字哦)" maxlength="20"></textarea>
+		<div style="color: red;visibility: hidden;" id="conterro">111111111</div>
+		 <div class="conbtn" id="conbtn">
+		    确定
+		</div>
+	</div>
+	<div id="lastshow" class="lastshow">提交成功请在留言树上耐心等待</div>
+	 <!-- <form id="mainForm" class="imgall">
+	    <div class="content">
+	        <div class="img-area">
+	            <!-- <div class="container">
+	                <input type="file" id='id-face' name='face'  accept="image/*" />
+	                <div id='face-empty-result'>
+	                    <img style='width:4rem' src="https://github.com/wangheng3751/my-resources/blob/master/images/camera.png?raw=true" alt="">
+	                    <p>身份证正面照</p>
+	                </div>
+	                <img style='width: 100%' id='face-result'/>
+	            </div>
+	            <div class="container" style='margin-top:0.5rem;'>
+	                <input type="file" id='id-back' name='back1' accept="image/*" />
+	                <div id='back-empty-result'>
+	                    <img style='width:4rem' src="https://github.com/wangheng3751/my-resources/blob/master/images/camera.png?raw=true" alt="">
+	                    <p>请点击相机拍照或选择您的头像</p>
+	                </div>
+	                <img style='width: 100%' id='back-result' name="back2"/>
+	            </div>
+	        </div>
+	    </div>
+		
+	   
+	 </form> -->
+	 <div id="message"></div>
+	 <div>
+ 
+  <div id="mainForm" style="text-align: center;margin: 0 auto; display: none;">
+		<div id="isauto" style="text-align: center;margin: 0 auto;">
+			<video id="video" width="480" height="320"  controls></video>
+			<canvas id="canvas" width="480" height="320" ></canvas>
+		</div>
+		 
+		
+    <button id="capture" class="imgcabtn" style="width: 6%;">拍照</button>
+		<!-- <button id="captureoff" class="imgcabtn" style="width: 30%;">重拍</button> -->
+		<div style="color: red;visibility: hidden;width: 100%;text-align: center;" id="imgerro">111111111</div>
+		 <div class="btn">
+		    确定
+		</div>
+  </div>
+	
+  
+	</div>
+  <script src="./js/cihui.js"></script>
+  	<script>
+		var hascur=false;
+    //访问用户媒体设备的兼容方法
+    function getUserMedia(constraints, success, error) {
+      if (navigator.mediaDevices.getUserMedia) {
+        //最新的标准API
+        navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
+      } else if (navigator.webkitGetUserMedia) {
+        //webkit核心浏览器
+        navigator.webkitGetUserMedia(constraints,success, error)
+      } else if (navigator.mozGetUserMedia) {
+        //firfox浏览器
+        navigator.mozGetUserMedia(constraints, success, error);
+      } else if (navigator.getUserMedia) {
+        //旧版API
+        navigator.getUserMedia(constraints, success, error);
+      }
+    }
+ 
+    let video = document.getElementById('video');
+    let canvas = document.getElementById('canvas');
+    let context = canvas.getContext('2d');
+ 
+    function success(stream) {
+      //兼容webkit核心浏览器
+      let CompatibleURL = window.URL || window.webkitURL;
+      //将视频流设置为video元素的源
+      //console.log(stream);
+ 
+      //video.src = CompatibleURL.createObjectURL(stream);
+      video.srcObject = stream;
+      video.play();
+    }
+ 
+    function error(error) {
+      console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
+    }
+ 
+    if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+      //调用用户媒体设备, 访问摄像头
+      getUserMedia({video : {width: 480, height: 320}}, success, error);
+    } else {
+      alert('不支持访问用户媒体');
+    }
+ 
+    document.getElementById('capture').addEventListener('click', function () {
+			// document.getElementById("video").style.display="none";
+			// document.getElementById("canvas").style.display="block";
+			
+			hascur=true;
+      context.drawImage(video, 0, 0, 480, 320);      
+    })
+		// document.getElementById('captureoff').addEventListener('click', function () {
+		// 	// document.getElementById("canvas").style.display="none";
+		// 	// document.getElementById("video").style.display="block";
+		// 	hascur=false;
+		//   context.drawImage(video, 0, 0, 480, 320);      
+		// }
+ 		
+ 		var myname;
+ 		var mycont;
+ 		window.onload=function(){
+     // document.getElementById("id-face").addEventListener("change", function(){       
+     //     onFileChange(this,"face-result","face-empty-result")
+     // });
+     // document.getElementById("id-back").addEventListener("change", function(){       
+     //     onFileChange(this,"back-result","back-empty-result")
+     // });
+     document.getElementsByClassName("btn")[0].addEventListener("click", function(){       
+ 		
+         submit();
+     });
+ 	 document.getElementById("namebtn").addEventListener("click", function(){       
+ 		
+ 		var mynamevalue=document.getElementById("namecont").value;
+ 		if(mynamevalue==""){
+ 			document.getElementById("nameerro").innerHTML="请填写正确的昵称或者姓名"
+ 
+ 			document.getElementById("nameerro").style.visibility="visible";
+ 		}else{
+ 			
+ 			for(var i=0;i<keywords.length;i++){
+ 				if(mynamevalue.indexOf(keywords[i])>-1){
+ 					document.getElementById("nameerro").innerHTML="您填写的昵称或者姓名包含敏感词汇请重新填写";
+ 					document.getElementById("nameerro").style.visibility="visible";
+ 					return;
+ 				}
+ 			}
+ 			myname=mynamevalue;
+ 			conectWebSocket();
+ 			document.getElementById("selfname").style.display="none";
+ 			document.getElementById("selfcont").style.display="block";
+ 		}
+ 	});
+ 	 document.getElementById("conbtn").addEventListener("click", function(){       
+ 		
+ 		var myconvalue=document.getElementById("txtcont").value;
+ 		
+ 		if(myconvalue==""){
+ 			document.getElementById("conterro").innerHTML="请填写留言"
+ 	
+ 			document.getElementById("conterro").style.visibility="visible";
+ 		}else{
+ 			for(var i=0;i<keywords.length;i++){
+ 				if(myconvalue.indexOf(keywords[i])>-1){
+ 					document.getElementById("conterro").innerHTML="您填写的留言含敏感词汇请重新填写";
+ 					document.getElementById("conterro").style.visibility="visible";
+ 					return;
+ 				}
+ 			}
+ 			mycont=myconvalue;
+ 			document.getElementById("selfcont").style.display="none";
+ 			document.getElementById("mainForm").style.display="block";
+ 		}
+ 	});
+ 	
+ };
+ /**
+  * 选中图片时的处理
+  * @param {*} fileObj input file元素
+  * @param {*} el //选中后用于显示图片的元素ID
+  * @param {*} btnel //未选中图片时显示的按钮区域ID
+  */
+ function onFileChange(fileObj,el,btnel){
+ 	//document.getElementById("imgerro").style.visibility="hidden";
+     var windowURL = window.URL || window.webkitURL;
+     var dataURL;
+     var imgObj = document.getElementById(el);
+     document.getElementById(btnel).style.display="none";
+     imgObj.style.display="block";
+     if (fileObj && fileObj.files && fileObj.files[0]) {
+         dataURL = windowURL.createObjectURL(fileObj.files[0]);
+         imgObj.src=dataURL;
+     } else {
+         dataURL = fileObj.value;
+         imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+         imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+     }
+ }
+ /**
+  * 将图片压缩后返回base64格式的数据
+  * @param {*} image img元素
+  * @param {*} width 压缩后图片宽度
+  * @param {*} height 压缩后图片高度
+  * @param {*} qua //图片质量1-100
+  */
+ function compressImageTobase64(qua){
+     var quality = qua ? qua / 100 : 0.8;
+     //var canvas = document.createElement("canvas"),  
+			var canvas = document.getElementById('canvas');
+     //     ctx = canvas.getContext('2d');     
+     // var w = image.naturalWidth,     
+     //     h = image.naturalHeight;     
+     // canvas.width = width||w;     
+     // canvas.height = height||h;     
+     //ctx.drawImage(image, 0, 0, w, h, 0, 0, width||w, height||h);
+     var data = canvas.toDataURL("image/jpeg", quality);     
+     return data;
+ }
+ //提交
+ function submit(){
+ 	//var imgsrc=document.getElementById("back-result").src;
+ 	if(!hascur){
+ 		document.getElementById("imgerro").innerHTML="请点击相机拍照选择你的头像";
+ 		document.getElementById("imgerro").style.visibility="visible";
+ 		return;
+ 	}
+     //1、form提交
+     //document.getElementById("mainForm").submit();
+     //2、压缩后ajax提交
+     //var face_data=compressImageTobase64(document.getElementById("face-result"),200,100,90);
+     var back_data=compressImageTobase64(10);
+     //var formData = new FormData();  
+     //formData.append("face",face_data);
+     //formData.append("back",back_data);
+ 	var dats={
+          'imgstr':back_data,
+         'name':myname,
+         'cont':mycont
+ 		};
+     //需引入jQuery
+     $.ajax({
+         url:"/getfileimg",
+         type: 'post',
+        // cache: true,
+ 		dataType: "json",
+ 		//contentType : 'application/json;charset=utf-8',
+         data: dats,
+ 		//enctype:"multipart/form-data",
+        // timeout:180000,
+        // processData: false,
+         //contentType: false,
+         success:function(r){
+ 			send(dats);
+ 			 document.getElementById("lastshow").style.display="block";
+ 			// document.getElementById("selfname").style.display="block";
+ 			 $("#mainForm").attr("style","display:none;");
+ 			 setTimeout(function(){
+ 				 location=location;
+ 			 },5000)
+         },
+         error:function(r){  
+         }
+    });
+   // $.ajax({
+   //   url : '/getfileimg',
+   //   type: 'post',
+   //   data: {
+   //       'userName':back_data+""
+   //   },
+   //   success: function(data) {
+   //       // TODO
+ 		// console.log(data)
+   //   }
+ //})
+ }
+ 	var websocket = null;
+     function conectWebSocket(){
+     	var nickname = myname;
+     	if(nickname===""){
+     	    alert("请输入昵称");
+     	    return;
+     	}
+         //判断当前浏览器是否支持WebSocket
+         if ('WebSocket'in window) {
+            // websocket = new WebSocket("ws://localhost:5050/websocket");
+             websocket = new WebSocket("ws:"+window.location.href.split("//")[1].split("/paizhao")[0]+"/websocket/"+nickname); 
+         } else {
+             alert('Not support websocket');
+         }
+         //连接发生错误的回调方法
+         websocket.onerror = function() {
+             setMessageInnerHTML("error");
+         };
+         //连接成功建立的回调方法
+         websocket.onopen = function(event) {
+             setMessageInnerHTML("Loc MSG: 成功建立连接");
+         }
+         //接收到消息的回调方法
+         websocket.onmessage = function(event) {
+             setMessageInnerHTML(event.data);
+         }
+         //连接关闭的回调方法
+         websocket.onclose = function() {
+             setMessageInnerHTML("Loc MSG:关闭连接");
+         }
+         //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+         window.onbeforeunload = function() {
+             websocket.close();
+         }
+     }
+     //将消息显示在网页上
+     function setMessageInnerHTML(innerHTML) {
+         document.getElementById('message').innerHTML += innerHTML + '<br/>';
+     }
+     //关闭连接
+     function closeWebSocket() {
+         websocket.close();
+     }
+     //发送消息
+     /*function send() {
+         var message = document.getElementById('text').value;
+         websocket.send(message);
+     }*/
+   //发送消息
+   // var dats={
+   //      'imgstr':back_data,
+   //     'name':myname,
+   //     'cont':mycont
+   // 	};
+     function send(dats) {
+			 console.log(dats);
+         //获取输入的文本信息进行发送
+         var socketMsg = {msg:dats.cont,toUser:'',imgMsg:dats.imgstr,type:0};
+     //     if(toUser == ''){
+     //         //群聊.
+     //         socketMsg.type = 0;
+     //     }else{
+     //         //单聊.
+     //         socketMsg.type = 1;
+     //     }
+         websocket.send(JSON.stringify(socketMsg));
+     }
+ 	</script>
+</body>
+</html>

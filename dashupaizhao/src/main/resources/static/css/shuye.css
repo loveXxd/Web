@@ -1,0 +1,218 @@
+#container {   
+    position: relative;   
+    height: 100%;   
+    width: 100%;   
+   /* margin: 10px auto; */  
+    overflow: hidden;   
+    border: 4px solid #5C090A;   
+    background: #4E4226 url(../images/dashuimg.png) no-repeat top left;   
+	background-size:100% 100%;
+}   
+  
+/* Defines the position and dimensions of the leafContainer div */  
+#leafContainer    
+{   
+    position: absolute;   
+    width: 100%;   
+    height: 100%;   
+}   
+  
+/* Defines the appearance, position, and dimensions of the message div */  
+/* #message   
+{   
+    position: absolute;   
+    top: 160px;   
+    width: 100%;   
+    height: 300px;   
+    background:transparent url() repeat-x center;   
+    color: #5C090A;   
+    font-size: 220%;   
+    font-family: 'Georgia';   
+    text-align: center;   
+    padding: 20px 10px;   
+    -webkit-box-sizing: border-box;   
+    -webkit-background-size: 100% 100%;   
+    z-index: 1;   
+} */  
+  
+p {   
+  margin: 15px;   
+}   
+  
+a   
+{   
+  color: #5C090A;   
+  text-decoration: none;   
+}   
+  
+/* Sets the color of the "Dino's Gardening Service" message */  
+em    
+{   
+    font-weight: bold;   
+    font-style: normal;   
+}   
+  
+.phone {   
+  font-size: 150%;   
+  vertical-align: middle;   
+}   
+  
+/* This CSS rule is applied to all div elements in the leafContainer div.  
+   It styles and animates each leafDiv.  
+*/  
+#leafContainer > div    
+{   
+    position: absolute;   
+    width: 5%;   
+    height: 5%;   
+  
+    /* We use the following properties to apply the fade and drop animations to each leaf.  
+       Each of these properties takes two values. These values respectively match a setting  
+       for fade and drop.  
+    */  
+    -webkit-animation-iteration-count: infinite, infinite;   
+    -webkit-animation-direction: normal, normal;   
+    -webkit-animation-timing-function: linear, ease-in; 
+	  -webkit-animation: 10s infinite;
+}   
+  
+/* This CSS rule is applied to all img elements directly inside div elements which are  
+   directly inside the leafContainer div. In other words, it matches the 'img' elements  
+   inside the leafDivs which are created in the createALeaf() function.  
+*/   
+#leafContainer>div>.shuyeout{
+	 -webkit-animation-iteration-count: infinite;   
+	-webkit-animation-direction: alternate;   
+	-webkit-animation-timing-function: ease-in-out;   
+	-webkit-transform-origin: 100% 0%;
+	-webkit-animation:show 3s infinite;
+}
+  /* #leafContainer > div > div {   
+       position: absolute;   
+       width: 400px;   
+       height: 400px;   
+		text-align: center;
+		/* line-height: 100px; */
+		/* margin-top: 10px; */
+		
+      /* We use the following properties to adjust the clockwiseSpin or counterclockwiseSpinAndFlip  
+         animations on each leaf.  
+         The createALeaf function in the Leaves.js file determines whether a leaf has the   
+         clockwiseSpin or counterclockwiseSpinAndFlip animation.  
+      */  
+      /* -webkit-animation-iteration-count: infinite;   
+       -webkit-animation-direction: alternate;   
+       -webkit-animation-timing-function: ease-in-out;   
+       -webkit-transform-origin: 50% -100%;   */
+  /*} */
+  
+  /* #leafContainer>div>.contout>.conttxt{
+	   -webkit-animation-iteration-count: infinite, infinite;   
+	  -webkit-animation-direction: normal, normal;   
+	  -webkit-animation-timing-function: linear, ease-in; 
+	    -webkit-animation: 10s infinite;
+	  /* -webkit-animation-direction: normal, normal;   
+	  -webkit-animation-timing-function: linear, ease-in; */  
+
+    	/*animation: changeshadow 1s  ease-in  infinite ;
+    	/* 其它浏览器兼容性前缀 */
+	    /* -webkit-animation: changeshadow 1s infinite;
+	    -moz-animation: changeshadow 1s linear infinite;
+	    -ms-animation: changeshadow 1s linear infinite;
+	    -o-animation: changeshadow 1s linear infinite; */
+   /* }  */
+    /* @keyframes changeshadow {  
+        0%{ text-shadow: 0 0 4px #4cc134}  
+        50%{ text-shadow: 0 0 40px #c736f4}  
+        100%{ text-shadow: 0 0 4px #4cc134}  
+    }
+    /* 添加兼容性前缀 */
+	@-webkit-keyframes changeshadow {
+		0%{ }  
+
+		42%{ text-shadow: 0 0 4px #4cc134;color:black;}  
+        45%{ text-shadow: 0 0 40px #c736f4;color:white;}  
+        48%{ text-shadow: 0 0 4px #4cc134;color:black;}  
+		51%{ text-shadow: 0 0 40px #c736f4;color:white;}  
+		54%{ text-shadow: 0 0 4px #4cc134;color:black;}
+		57%{ text-shadow: 0 0 40px #c736f4;color:white;}  
+		60%{ text-shadow: 0 0 4px #4cc134;color:black;}
+		100%{text-shadow: 0 0 4px #4cc134;color:black;}
+	}
+	/* @-webkit-keyframes changeshadow2 {
+		0%{ }  
+	
+		42%{ visibility: initial;}  
+	    45%{visibility: initial; }  
+	    48%{ visibility: initial;}  
+		51%{visibility: initial; }  
+		54%{ visibility: initial;}
+		57%{visibility: initial; }  
+		60%{visibility: initial; }
+		100%{visibility: initial;}
+	} */
+	/*@-moz-keyframes changeshadow {
+	    0%{ text-shadow: 0 0 4px #4cc134}  
+            50%{ text-shadow: 0 0 40px #c736f4}  
+            100%{ text-shadow: 0 0 4px #4cc134}  
+	}
+	@-ms-keyframes changeshadow {
+	    0%{ text-shadow: 0 0 4px #4cc134}  
+            50%{ text-shadow: 0 0 40px #c736f4}  
+            100%{ text-shadow: 0 0 4px #4cc134}  
+	}
+	@-o-keyframes changeshadow {
+	    0%{ text-shadow: 0 0 4px #4cc134}  
+            50%{ text-shadow: 0 0 40px #c736f4}  
+            100%{ text-shadow: 0 0 4px #4cc134}  
+	} */
+/* Hides a leaf towards the very end of the animation */  
+@-webkit-keyframes fade   
+{   
+    /* Show a leaf while into or below 95 percent of the animation and hide it, otherwise */  
+    0%   { opacity: 1;}
+	40%   { opacity: 0;}
+	 41%   { opacity: 0;}
+	 42%   { opacity: 1;}  
+    100% { opacity: 1; }   
+}   
+  
+/* Makes a leaf fall from -300 to 600 pixels in the y-axis */  
+@-webkit-keyframes drop   
+{   
+    /* Move a leaf to -300 pixels in the y-axis at the start of the animation */  
+    0%   { -webkit-transform: translate(0px, 0px); }
+	40%   { -webkit-transform: translate(0px, 1000px); }
+	 41%   { -webkit-transform: translate(0px, 0px); } 
+    /* Move a leaf to 600 pixels in the y-axis at the end of the animation */  
+    100% { -webkit-transform: translate(0px, 0px); }   
+}   
+@-webkit-keyframes show   
+{   
+    /* Move a leaf to -300 pixels in the y-axis at the start of the animation */  
+    0%   { -webkit-transform: border:solid red;border-radius:50% ; }
+	80%   { -webkit-transform: border:solid darkblue;border-radius:50% ; }
+	
+    /* Move a leaf to 600 pixels in the y-axis at the end of the animation */  
+    100% { -webkit-transform: translate(0px, 1000px); }   
+}
+  
+/* Rotates a leaf from -50 to 50 degrees in 2D space */  
+@-webkit-keyframes clockwiseSpin   
+{   
+    /* Rotate a leaf by -50 degrees in 2D space at the start of the animation */  
+    0%   { -webkit-transform: rotate(0deg); }   
+    /*  Rotate a leaf by 50 degrees in 2D space at the end of the animation */
+	  50%   { -webkit-transform: rotate(20deg); } 
+    100% { -webkit-transform: rotate(0deg); }   
+}   
+  
+/* Flips a leaf and rotates it from 50 to -50 degrees in 2D space */  
+@-webkit-keyframes counterclockwiseSpinAndFlip    
+{   
+    /* Flip a leaf and rotate it by 50 degrees in 2D space at the start of the animation */  
+    0%   { -webkit-transform: scale(-1, 1) rotate(0deg); }   
+	50%   { -webkit-transform: scale(-1, 1) rotate(-30deg); } 
+    /* Flip a leaf and rotate it by -50 degrees in 2D space at the end of the animation */  
+    100% { -webkit-transform: scale(-1, 1) rotate(0deg); }   
+}   

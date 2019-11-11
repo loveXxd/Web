@@ -1,0 +1,204 @@
+#container {   
+    position: relative;   
+    height: 100%;   
+    width: 100%;   
+   /* margin: 10px auto; */  
+    overflow: hidden;   
+    border: 4px solid #5C090A;   
+    background: #4E4226 url(../images/dashu/dashu.jpg) no-repeat top left;   
+	background-size:100% 100%;
+}   
+  
+/* Defines the position and dimensions of the leafContainer div */  
+#leafContainer    
+{   
+    position: absolute;   
+    width: 100%;   
+    height: 100%;   
+}   
+  
+
+  
+p {   
+  margin: 15px;   
+}   
+  
+a   
+{   
+  color: #5C090A;   
+  text-decoration: none;   
+}   
+  
+/* Sets the color of the "Dino's Gardening Service" message */  
+em    
+{   
+    font-weight: bold;   
+    font-style: normal;   
+}   
+  
+.phone {   
+  font-size: 150%;   
+  vertical-align: middle;   
+}   
+  
+/* This CSS rule is applied to all div elements in the leafContainer div.  
+   It styles and animates each leafDiv.  
+*/  
+
+
+
+
+
+
+
+
+#leafContainer > .outde    
+{   
+    position: absolute;   
+    width: 5%;   
+    height: 5%;   
+ 
+    -webkit-animation-iteration-count: infinite, infinite;   
+    -webkit-animation-direction: normal, normal;   
+    -webkit-animation-timing-function: linear, ease-in; 
+	  -webkit-animation: 5s linear forwards;
+}   
+  
+/* Hides a leaf towards the very end of the animation */  
+@-webkit-keyframes fade   
+{   
+    /* Show a leaf while into or below 95 percent of the animation and hide it, otherwise */  
+    0%   { opacity: 1;}
+	15%   { opacity: 0.5;}
+	 40%   { opacity: 0;}
+	 75%   { opacity: 0;} 
+	  76%   { opacity: 0.5;} 
+    100% { opacity: 1; }   
+}   
+@-webkit-keyframes showmain   
+{   
+    /* Show a leaf while into or below 95 percent of the animation and hide it, otherwise */  
+    0%   { opacity: 1;}
+	25%   { opacity: 0.5;}
+	50%   { opacity: 0;}
+	95%   { opacity:0.5;}  
+    100% { opacity: 1; }   
+}   
+  
+  
+  
+  
+  
+  
+  
+ 
+
+
+#leafContainer>div>.shuyeout{
+	 -webkit-animation-iteration-count: infinite;   
+	-webkit-animation-direction: alternate;   
+	-webkit-animation-timing-function: ease-in-out;   
+	-webkit-transform-origin: 0% 50%;
+	-webkit-animation:show 3s infinite;
+}
+
+  
+  #leafContainer>div>.contout>.conttxt{
+	   -webkit-animation-iteration-count: infinite, infinite;   
+	  -webkit-animation-direction: normal, normal;   
+	  -webkit-animation-timing-function: linear, ease-in; 
+	    -webkit-animation: 40s linear forwards;
+
+    }  
+	#leafContainer>div>.contout>.qipao{
+		   -webkit-animation-iteration-count: infinite, infinite;   
+		  -webkit-animation-direction: normal, normal;   
+		  -webkit-animation-timing-function: linear, ease-in; 
+		    -webkit-animation: 40s linear forwards;
+	
+	  }
+
+    /* 娣诲姞鍏煎鎬у墠缂� */
+	@-webkit-keyframes changeshadow {
+		0%{opacity: 0;color:black;background:#7cb954 ; }  
+		13%{opacity: 0; visibility: visible;}
+		15%{opacity: 0.5; }  
+    	20%{opacity: 1; }  
+   		25%{opacity: 0.5; }  
+		30%{ opacity: 1;}  
+		35%{opacity: 0.5; }
+		40%{opacity: 1; }  
+		45%{opacity: 0.5; }
+		50%{opacity: 1;color:black;background:#7cb954 ;}
+		100%{visibility: hidden;}
+		
+	}
+	
+ 
+
+
+/* Rotates a leaf from -50 to 50 degrees in 2D space */  
+@-webkit-keyframes clockwiseSpin   
+{   
+    /* Rotate a leaf by -50 degrees in 2D space at the start of the animation */  
+    0%   { -webkit-transform: rotate(0deg); }   
+    /*  Rotate a leaf by 50 degrees in 2D space at the end of the animation */
+	  50%   { -webkit-transform: rotate(-20deg); } 
+    100% { -webkit-transform: rotate(0deg); }   
+}   
+  
+/* Flips a leaf and rotates it from 50 to -50 degrees in 2D space */  
+@-webkit-keyframes counterclockwiseSpinAndFlip    
+{   
+    /* Rotate a leaf by -50 degrees in 2D space at the start of the animation */  
+  0%   { -webkit-transform: rotate(0deg); }   
+  /*  Rotate a leaf by 50 degrees in 2D space at the end of the animation */
+    50%   { -webkit-transform: rotate(20deg); } 
+  100% { -webkit-transform: rotate(0deg); } 
+}   
+
+body>#container>#leafContainer>#mainout1,#mainout4,#mainout7{
+	-webkit-animation-iteration-count: infinite;   
+	-webkit-animation-direction: alternate;   
+	-webkit-animation-timing-function: ease-in-out;   
+	-webkit-transform-origin: 0% 50%;
+	-webkit-animation:mian1 6s infinite;
+}
+@-webkit-keyframes mian1    
+{   
+    /* Rotate a leaf by -50 degrees in 2D space at the start of the animation */  
+  0%   { -webkit-transform: rotate(30deg); }   
+  /*  Rotate a leaf by 50 degrees in 2D space at the end of the animation */
+    50%   { -webkit-transform: rotate(20deg); } 
+  100% { -webkit-transform: rotate(30deg); } 
+}
+body>#container>#leafContainer>#mainout2,#mainout5{
+	-webkit-animation-iteration-count: infinite;   
+	-webkit-animation-direction: alternate;   
+	-webkit-animation-timing-function: ease-in-out;   
+	-webkit-transform-origin: 0% 50%;
+	-webkit-animation:mian2 6s infinite;
+}
+@-webkit-keyframes mian2    
+{   
+    /* Rotate a leaf by -50 degrees in 2D space at the start of the animation */  
+  0%   { -webkit-transform: rotate(0deg); }   
+  /*  Rotate a leaf by 50 degrees in 2D space at the end of the animation */
+    50%   { -webkit-transform: rotate(20deg); } 
+  100% { -webkit-transform: rotate(0deg); } 
+}
+body>#container>#leafContainer>#mainout3,#mainout6{
+	-webkit-animation-iteration-count: infinite;   
+	-webkit-animation-direction: alternate;   
+	-webkit-animation-timing-function: ease-in-out;   
+	-webkit-transform-origin: 0% 50%;
+	-webkit-animation:mian3 6s infinite;
+}
+@-webkit-keyframes mian3    
+{   
+    /* Rotate a leaf by -50 degrees in 2D space at the start of the animation */  
+  0%   { -webkit-transform: rotate(-20deg); }   
+  /*  Rotate a leaf by 50 degrees in 2D space at the end of the animation */
+    50%   { -webkit-transform: rotate(0deg); } 
+  100% { -webkit-transform: rotate(-20deg); } 
+}
